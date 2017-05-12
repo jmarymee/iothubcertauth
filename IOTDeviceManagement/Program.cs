@@ -31,11 +31,12 @@ namespace IOTDeviceManagement
 
         private static async Task AuthADevice()
         {
-
+            string connStr = "APQIOTHub.azure-devices.net";
+            string conn2 = "HostName=APQIOTHub.azure-devices.net;DeviceId=APQ1;SharedAccessKey=nFIIlMG3Ne2NA6pgB0TD+kC2g3INRdTlLOGWCFe/AbQ=";
             X509Certificate2 x509Certificate = new X509Certificate2(@"C:\tools\putty\client.p12", "pass@word");
             var authMethod = new DeviceAuthenticationWithX509Certificate("devicex509", x509Certificate);
-            var deviceClient = DeviceClient.Create("APQIOTHub.azure-devices.net", authMethod, Microsoft.Azure.Devices.Client.TransportType.Mqtt_Tcp_Only);
-
+            var deviceClient = DeviceClient.Create(connStr, authMethod, Microsoft.Azure.Devices.Client.TransportType.Mqtt_Tcp_Only);
+            //var deviceClient = DeviceClient.CreateFromConnectionString(conn2, Microsoft.Azure.Devices.Client.TransportType.Mqtt_Tcp_Only);
             await deviceClient.SendEventAsync(GetMessage());
             
 
